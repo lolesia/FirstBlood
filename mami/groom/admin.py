@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.html import format_html
+
 from .models import *
 
 
@@ -21,8 +23,11 @@ class PriceAdmin(admin.ModelAdmin):
 
 
 class PortfolioAdmin(admin.ModelAdmin):
-    list_display = ['photo', 'breed']
-    list_display_links = ['photo']
+    list_display = ['image_tag', 'breed']
+    list_display_links = ['image_tag']
+
+    def image_tag(self, obj):
+        return format_html('<img src="{}" style="max-width: 100px; max-height: 100px;" />'.format(obj.image.url))
 
 
 class ExpensesAdmin(admin.ModelAdmin):

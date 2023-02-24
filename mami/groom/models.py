@@ -20,7 +20,7 @@ class Client(models.Model):
     city = models.CharField(max_length=10, choices=CITY, verbose_name='Місто')
     pet_name = models.CharField(max_length=255, verbose_name='Кличка тварини')
     breed = models.ForeignKey('Breed', on_delete=models.PROTECT, verbose_name='Порода')
-    phone_number = models.CharField(max_length=20, verbose_name='Номер телефону')
+    phone_number = models.CharField(max_length=13, verbose_name='Номер телефону')
     photo = models.FileField(upload_to='static/groom', verbose_name='Фото')
     comments = models.TextField(max_length=255, blank=True, null=True, verbose_name='Коментар')
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='WAITING', verbose_name='Статус заявки')
@@ -29,9 +29,12 @@ class Client(models.Model):
     def __str__(self):
         return self.client_name
 
-    def num(self):
-        if not re.Match('/^[\+]?3?[\s]?8?[\s]?\(?0\d{2}?\)?[\s]?\d{3}[\s|-]?\d{2}[\s|-]?\d{2}$/', self.phone_number):
+    def save(self, *args, **kwargs):
+        pattern = r'^[\+]?3?[\s]?8?[\s]?\(?0\d{2}?\)?[\s]?\d{3}[\s|-]?\d{2}[\s|-]?\d{2}$'
+        if not re.match(pattern, self.phone_number):
             raise ValidationError({'phone_number': 'Перевірте вірність номеру телефону'})
+        else:
+            super(Client, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Заявки'
@@ -65,13 +68,16 @@ class Price(models.Model):
 
 
 class Portfolio(models.Model):
-    photo = models.FileField(upload_to='static/portfolio')
+    image = models.ImageField(upload_to='static/portfolio', default='')
     data = models.DateTimeField(auto_now_add=True)
     breed = models.ForeignKey('Breed', on_delete=models.PROTECT)
 
     class Meta:
         verbose_name = 'Портфоліо'
         verbose_name_plural = 'Портфоліо'
+
+    def __str__(self):
+        return self.image.name
 
 
 class Expenses(models.Model):
@@ -84,19 +90,6 @@ class Expenses(models.Model):
     class Meta:
         verbose_name = 'Витрати'
         verbose_name_plural = 'Витрати'
-
-    def total_expenses(self):
-        exp = Expenses.objects.all()
-        total = 0
-        for ex in exp:
-            total += ex.cost
-        return total
-
-
-
-
-
-
 
 
 class Type(models.Model):
