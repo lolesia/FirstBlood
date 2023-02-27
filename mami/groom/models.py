@@ -21,7 +21,7 @@ class Client(models.Model):
     pet_name = models.CharField(max_length=255, verbose_name='Кличка тварини')
     breed = models.ForeignKey('Breed', on_delete=models.PROTECT, verbose_name='Порода')
     phone_number = models.CharField(max_length=13, verbose_name='Номер телефону')
-    photo = models.FileField(upload_to='static/groom', verbose_name='Фото')
+    photo = models.FileField(upload_to='static/groom',blank=True, null=True, verbose_name='Фото')
     comments = models.TextField(max_length=255, blank=True, null=True, verbose_name='Коментар')
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='WAITING', verbose_name='Статус заявки')
     data = models.DateTimeField(auto_now_add=True)
