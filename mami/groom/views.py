@@ -41,3 +41,33 @@ def send_telegram(data):
 
 def thanks(request):
     return render(request, 'groom/Thanks.html')
+
+def portfolio(request):
+    port = Portfolio.objects.all()
+    breed = Breed.objects.all()
+    context = {
+        'port': port,
+        'breed': breed,
+        'title': 'Приклади робіт'
+    }
+    def __str__(self):
+        return self.image.name
+
+    return render(request, 'groom/Portfolio.html', context=context)
+
+def price(request, location):
+    cost = Price.objects.all()
+    kiev = True
+
+    if location == "murgorod":
+        kiev = False
+
+    content = {
+        'cost': cost,
+        'kiev': kiev,
+        'title': 'Прайс'
+    }
+
+    return render(request, 'groom/Price.html', context=content)
+
+

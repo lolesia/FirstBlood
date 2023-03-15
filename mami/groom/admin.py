@@ -17,9 +17,9 @@ class BreedAdmin(admin.ModelAdmin):
 
 
 class PriceAdmin(admin.ModelAdmin):
-    list_display = ['service', 'cost', 'time', 'content']
-    list_display_links = ['service']
-    list_filter = ['service', 'cost']
+    list_display = ['breed', 'cost_kiev', 'cost_murgorod', 'time', 'content']
+    list_display_links = ['breed']
+    list_filter = ['cost_kiev', 'cost_murgorod']
 
 
 class PortfolioAdmin(admin.ModelAdmin):
