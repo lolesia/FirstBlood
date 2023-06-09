@@ -22,7 +22,7 @@ class PriceAdmin(admin.ModelAdmin):
     list_filter = ['cost_kiev', 'cost_murgorod']
 
 
-class PortfolioAdmin(admin.ModelAdmin):
+class PortfolioAdmin(admin   .ModelAdmin):
     list_display = ['image_tag', 'breed']
     list_display_links = ['image_tag']
 

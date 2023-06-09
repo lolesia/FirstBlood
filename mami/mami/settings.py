@@ -37,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'groom.apps.GroomConfig'
+    'groom.apps.GroomConfig',
+    'expenses.apps.ExpensesConfig',
+    'portfolio.apps.PortfolioConfig',
+    'profile.apps.ProfileConfig',
+    'reviews.apps.ReviewsConfig',
+    'users.apps.UsersConfig',
+    'visits.apps.VisitsConfig'
 ]
 
 MIDDLEWARE = [

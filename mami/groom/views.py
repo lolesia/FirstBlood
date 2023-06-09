@@ -11,10 +11,13 @@ menu = [
     {'title': 'Головна сторінка', 'url_name': 'home'},
     {'title': "Прайс", 'url_name': 'cost'},
     {'title': 'Про нас', 'url_name': 'about'}
-
 ]
+
+
 def home(request):
     return render(request, 'groom/base.html')
+
+
 def apply(request):
     if request.method == 'POST':
         form = Apply(request.POST)
@@ -53,7 +56,7 @@ def portfolio(request):
     def __str__(self):
         return self.image.name
 
-    return render(request, 'groom/Portfolio.html', context=context)
+    return render(request, 'groom/portfolio.html', context=context)
 
 def price(request, location):
     cost = Price.objects.all()

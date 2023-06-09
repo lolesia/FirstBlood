@@ -1,0 +1,21 @@
+{% extends 'groom/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Приклади робіт</h1>
+    <div class="row">
+        {% for a in port %}
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" src="{{ a.image.url }}" alt="{{ a.breed }}" style="width: 400px; height: 300px;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ a.breed }}</h5>
+                        {% if a.image.url %}
+                            <a href=# class="btn btn-primary">Розгорнути</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
