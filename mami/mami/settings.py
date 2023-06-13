@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'profile.apps.ProfileConfig',
     'reviews.apps.ReviewsConfig',
     'users.apps.UsersConfig',
-    'visits.apps.VisitsConfig'
+    'visits.apps.VisitsConfig',
+    'services.apps.ServicesConfig'
 ]
 
 MIDDLEWARE = [
@@ -86,7 +87,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -134,3 +134,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+AUTH_USER_MODEL = 'users.User'

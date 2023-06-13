@@ -1,8 +1,11 @@
+import uuid
+
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.core.exceptions import ValidationError
 from django.db import models
 import re
+
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, name, last_name, phone, password=None) -> 'User':
@@ -15,8 +18,8 @@ class UserAccountManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, name, last_name, phone, password=None):
-        user = self.create_user(email, name, last_name, phone, password)
+    def create_superuser(self, email, name, last_name, phone,  password=None):
+        user = self.create_user(email, name, last_name, phone,  password)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
@@ -29,9 +32,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('KIEV', 'Київ'),
         ('MYRGOROD', 'Миргород'),
     ]
-
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(max_length=255, unique=True)
-    first_name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone = models.CharField(max_length=12, unique=True)
     city = models.CharField(max_length=10, choices=CITY, verbose_name='Місто')
@@ -48,4 +51,4 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone']
+    REQUIRED_FIELDS = ['name', 'last_name', 'phone']
