@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'groom.apps.GroomConfig',
     'expenses.apps.ExpensesConfig',
     'portfolio.apps.PortfolioConfig',
     'profile.apps.ProfileConfig',
