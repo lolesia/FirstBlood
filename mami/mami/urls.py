@@ -25,7 +25,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/expenses/', include('expenses.urls')),
-    path('api/portfolio/', include('portfolio.urls'))
+    path('api/portfolio/', include('portfolio.urls')),
+    path('api/pet/', include('profile.urls')),
+    path('api/reviews/', include('reviews.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
