@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'visits.apps.VisitsConfig',
     'services.apps.ServicesConfig',
-    'rest_framework'
+    'rest_framework',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -141,7 +142,7 @@ AUTH_USER_MODEL = 'users.User'
 #     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly', )
 # }
 REST_FRAMEWORK = {
-
-   'DEFAULT_PERMISSION_CLASSES': ( 'rest_framework.permissions.IsAdminUser', ),
-
+    'DEFAULT_PERMISSION_CLASSES': [
+       'rest_framework.permissions.AllowAny',
+    ],
 }

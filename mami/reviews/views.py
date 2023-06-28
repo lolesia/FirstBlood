@@ -1,11 +1,11 @@
 from .serializer import ReviewsSerializer
 from rest_framework import viewsets
 from .models import Reviews
-from .permission import CustomPermission
+from .permission import ReviewsPermission
 
 
 class ReviewsViewSet(viewsets.ModelViewSet):
     queryset = Reviews.objects.all()
     serializer_class = ReviewsSerializer
-    permission_classes = [CustomPermission]
+    permission_classes = [ReviewsPermission]
 

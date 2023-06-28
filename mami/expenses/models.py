@@ -19,7 +19,7 @@ class Expenses(models.Model):
     comment = models.CharField(max_length=255, blank=True, verbose_name='Коментар')
 
     def __str__(self):
-        return self.type
+        return self.type.type
 
 
 

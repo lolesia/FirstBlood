@@ -14,7 +14,7 @@ class IsOwnerOrReadOnly(BasePermission):
         return request.user == obj.user
 
 
-class CustomPermission(BasePermission):
+class ReviewsPermission(BasePermission):
 
     def get_permissions(self):
         if self.action == 'retrieve':
@@ -27,4 +27,4 @@ class CustomPermission(BasePermission):
             permission_classes = [IsOwnerOrReadOnly]
         else:
             permission_classes = []
-        return permission_classes
+        return [permission() for permission in permission_classes]

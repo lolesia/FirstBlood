@@ -3,8 +3,8 @@ from .models import Reviews
 
 
 class ReviewsAdmin(admin.ModelAdmin):
-    list_display = '__all__'
-    list_display_links = ['user', 'text']
+    list_display = ('user', 'text', 'score', 'date')
+    list_display_links = ('user', 'text')
 
 
-admin.site.register(Reviews)
+admin.site.register(Reviews, ReviewsAdmin)

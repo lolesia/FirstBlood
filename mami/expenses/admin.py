@@ -3,14 +3,14 @@ from .models import *
 
 
 class ExpensesAdmin(admin.ModelAdmin):
-    list_display = '__all__'
-    list_display_links = ['name']
+    list_display = ('type', 'name', 'cost', 'date', 'comment')
+    list_display_links = ('name',)
 
 
 class TypeAdmin(admin.ModelAdmin):
-    list_display = '__all__'
-    list_display_links = '__all__'
+    list_display = ('type',)
+    list_display_links = ('type',)
 
 
-admin.site.register(Expenses)
-admin.site.register(Type)
+admin.site.register(Expenses, ExpensesAdmin)
+admin.site.register(Type, TypeAdmin)
