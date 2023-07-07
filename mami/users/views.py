@@ -1,3 +1,6 @@
-from django.shortcuts import render
+# from rest_framework import viewsets
+# from .models import User
+# from .serializer import UserCreateSerializer
 
-# Create your views here.
+
+

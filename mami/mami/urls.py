@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from mami import settings
 from rest_framework import permissions
@@ -20,8 +20,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('api/auth/', include('djoser.urls')),  # URL-шаблоны Djoser
+    re_path(r'^auth/', include('djoser.urls.jwt')),  # URL-шаблоны JWT-аутентификации Djoser
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
     path('api/expenses/', include('expenses.urls')),
     path('api/portfolio/', include('portfolio.urls')),
     path('api/pet/', include('profile.urls')),

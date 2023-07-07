@@ -6,7 +6,7 @@ class ExpensesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Expenses
-        fields ='__all__'
+        fields = '__all__'
 
 
 class TypeSerializer(serializers.ModelSerializer):
