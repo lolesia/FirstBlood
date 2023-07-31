@@ -45,7 +45,8 @@ urlpatterns = [
     path('api/pet/', include('profile.urls')),
     path('api/reviews/', include('reviews.urls')),
     path('api/services/', include('services.urls')),
-    path('api/visits/', include('visits.urls'))
+    path('api/visits/', include('visits.urls')),
+    path('api/users/', include('users.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

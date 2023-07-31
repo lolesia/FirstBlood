@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import User
 
-from phonenumbers import parse, is_valid_number, NumberParseException
+from phonenumbers import parse, is_valid_number
 
 
 class UserSerializer(serializers.ModelSerializer):

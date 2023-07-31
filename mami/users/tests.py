@@ -1,7 +1,9 @@
 from django.test import TestCase
 from rest_framework import serializers
 from .serializer import UserSerializer
-
+from .views import UserViewSet
+from rest_framework import permissions
+from .permission import IsOwnerOrReadOnly
 
 class UserSerializerTest(TestCase):
     data_positve = {
@@ -39,6 +41,36 @@ class UserSerializerTest(TestCase):
             self.fail("Валідація паролю не повинаа викликати виключення")
 
 
+class UserViewSetTest(TestCase):
 
+    def test_get_permission_create(self):
+        view = UserViewSet()
+        view.action = 'create'
+        permissions_list = view.get_permissions()
+        expected_permissions = [permissions.AllowAny]
+        actual_permissions = [permission.__class__ for permission in permissions_list]
+        self.assertEqual(actual_permissions, expected_permissions)
 
+    def test_get_permission_update(self):
+        view = UserViewSet()
+        view.action = ('update', 'partial_update')
+        permissions_list = view.get_permissions()
+        expected_permissions = [IsOwnerOrReadOnly]
+        actual_permissions = [permission.__class__ for permission in permissions_list]
+        self.assertEqual(actual_permissions, expected_permissions)
 
+    def test_get_permission_destroy(self):
+        view = UserViewSet()
+        view.action = 'destroy'
+        permissions_list = view.get_permissions()
+        expected_permissions = [permissions.IsAdminUser]
+        actual_permissions = [permission.__class__ for permission in permissions_list]
+        self.assertEqual(actual_permissions, expected_permissions)
+
+    def test_get_permission_else(self):
+        view = UserViewSet()
+        view.action = 'some_other_action'
+        permissions_list = view.get_permissions()
+        expected_permissions = [permissions.IsAuthenticatedOrReadOnly]
+        actual_permissions = [permission.__class__ for permission in permissions_list]
+        self.assertEqual(actual_permissions, expected_permissions)
