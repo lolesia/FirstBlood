@@ -1,16 +1,23 @@
 from rest_framework import serializers
-from .models import Expenses, Type
 
 
-class ExpensesSerializer(serializers.ModelSerializer):
+class ExpensesSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    type = serializers.CharField()
+    name = serializers.CharField()
+    cost = serializers.IntegerField()
+    date = serializers.DateField()
+    comment = serializers.CharField()
 
-    class Meta:
-        model = Expenses
-        fields = '__all__'
+
+class ExpensesCreateSerializer(serializers.Serializer):
+    type = serializers.CharField()
+    name = serializers.CharField()
+    cost = serializers.IntegerField()
+    date = serializers.DateField()
+    comment = serializers.CharField()
 
 
-class TypeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Type
-        fields = '__all__'
+class TypeSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    type = serializers.CharField()

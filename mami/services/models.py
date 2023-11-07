@@ -1,5 +1,5 @@
 from django.db import models
-from profile.models import Breed
+from pets.models import Breed
 
 
 class Services(models.Model):

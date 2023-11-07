@@ -1,11 +1,6 @@
-from rest_framework import routers
-from .views import ExpensesViewSet, TypeViewSet
+from django.urls import path
+from .views import ExpensesApiView
 
-router = routers.DefaultRouter()
-
-urlpatterns = []
-
-router.register(r'', ExpensesViewSet)
-router.register(r'type', TypeViewSet)
-
-urlpatterns += router.urls
+urlpatterns = [
+    path('', ExpensesApiView.as_view())
+]

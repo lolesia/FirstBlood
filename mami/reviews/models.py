@@ -1,11 +1,9 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from users.models import User
-import uuid
 
 
 class Reviews(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='reviews', null=True, blank=True)
     text = models.CharField(max_length=500)
     date = models.DateField(auto_now_add=True)

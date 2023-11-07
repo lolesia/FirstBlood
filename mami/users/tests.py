@@ -5,6 +5,7 @@ from .views import UserViewSet
 from rest_framework import permissions
 from .permission import IsOwnerOrReadOnly
 
+
 class UserSerializerTest(TestCase):
     data_positve = {
         'email': 'test@example.com',
@@ -53,7 +54,7 @@ class UserViewSetTest(TestCase):
 
     def test_get_permission_update(self):
         view = UserViewSet()
-        view.action = ('update', 'partial_update')
+        view.action = ('update' or 'partial_update')
         permissions_list = view.get_permissions()
         expected_permissions = [IsOwnerOrReadOnly]
         actual_permissions = [permission.__class__ for permission in permissions_list]

@@ -1,10 +1,9 @@
-import uuid
-
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.core.exceptions import ValidationError
 from django.db import models
 import re
+from typing import List
 
 
 class UserAccountManager(BaseUserManager):
@@ -28,16 +27,15 @@ class UserAccountManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
 
-    CITY = [
-        ('KIEV', 'Київ'),
-        ('MYRGOROD', 'Миргород'),
-    ]
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
     phone = models.CharField(max_length=12, unique=True)
-    city = models.CharField(max_length=10, choices=CITY, verbose_name='Місто')
+    first_name = None
+    last_name = None
+    username = None
+    objects = UserAccountManager()
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS: List[str] = []
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -48,7 +46,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         else:
             super(User, self).save(*args, **kwargs)
 
-    objects = UserAccountManager()
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'last_name', 'phone']
