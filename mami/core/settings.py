@@ -56,24 +56,6 @@ INSTALLED_APPS = [
 
 ]
 
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'APP': {
-#             'client_id': '58769409695-rrjbaf0rc9snsf1olm7mmakupuau4pma.apps.googleusercontent.com',
-#             'secret': 'GOCSPX-TzOVcIpQHiv6t_oNV04toXYEoZ_',
-#             'key': '',
-#         },
-#         'SCOPE': [
-#             'profiles',
-#             'email',
-#         ],
-#         'AUTH_PARAMS': {
-#             'access_type': 'online',
-#         },
-#     }
-# }
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
