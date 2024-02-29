@@ -1,22 +1,36 @@
-from rest_framework import viewsets, permissions
-from .serializer import UserSerializer
-from .models import User
-from .permission import IsOwnerOrReadOnly
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+from .serializer import UserRegistrationSerializer
+from .dto import UserRegistrationDTO
 
-    def get_permissions(self):
-        if self.action == 'create':
-            self.permission_classes = [permissions.AllowAny]
-        elif self.action in ['update', 'partial_update']:
-            self.permission_classes = [IsOwnerOrReadOnly]
-        elif self.action == 'destroy':
-            self.permission_classes = [permissions.IsAdminUser]
-
-        return super().get_permissions()
+from core.containers import ProjectContainer
+from core.permissions import NotAuthenticated
 
 
+class UserRegistrationAPIView(APIView):
 
+    permission_classes = [NotAuthenticated]
+
+    def post(self, request):
+        create_user = UserRegistrationSerializer(data=request.data)
+        if not create_user.is_valid():
+            return Response(create_user.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        create_user_interactor = ProjectContainer.user_interactor()
+        create_user_dto = UserRegistrationDTO(**create_user.validated_data)
+        create_user = create_user_interactor.user_registration(create_user_dto)
+        create_user_serializer = UserRegistrationSerializer(create_user)
+
+        return Response(
+            data=create_user_serializer.data,
+            status=status.HTTP_201_CREATED,
+        )
+
+
+
+
+
+    

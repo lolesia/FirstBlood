@@ -7,22 +7,27 @@ from typing import List
 
 
 class UserAccountManager(BaseUserManager):
-    def create_user(self, email, name, last_name, phone, password=None) -> 'User':
+    def create_user(self, email, password=None, **extra_fields) -> 'User':
 
         email = self.normalize_email(email)
-        user = self.model(email=email, name=name, last_name=last_name, phone=phone)
+        user = self.model(email=email,  **extra_fields)
 
         user.set_password(password)
         user.save(using=self._db)
 
         return user
 
-    def create_superuser(self, email, name, last_name, phone,  password=None):
-        user = self.create_user(email, name, last_name, phone,  password)
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self._db)
-        return user
+    def create_superuser(self, email, password=None, **extra_fields):
+
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
+
+        return self.create_user(email=email, password=password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -39,10 +44,4 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    def save(self, *args, **kwargs):
-        pattern = r'^[\+]?3?[\s]?8?[\s]?\(?0\d{2}?\)?[\s]?\d{3}[\s|-]?\d{2}[\s|-]?\d{2}$'
-        if not re.match(pattern, self.phone):
-            raise ValidationError({'phone_number': 'Перевірте вірність номеру телефону'})
-        else:
-            super(User, self).save(*args, **kwargs)
 
