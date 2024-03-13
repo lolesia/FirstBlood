@@ -1,4 +1,5 @@
 from django.db import models
+from profiles.models import Groomer
 
 
 class Type(models.Model):
@@ -9,7 +10,8 @@ class Type(models.Model):
 
 
 class Expenses(models.Model):
-    type = models.ForeignKey(Type, on_delete=models.PROTECT, related_name='expenses',verbose_name='Тип витрат')
+    groomer = models.ForeignKey(Groomer, on_delete=models.SET_NULL, null=True, related_name='grooming_expenses')
+    type = models.ForeignKey(Type, on_delete=models.PROTECT, related_name='expenses_type', verbose_name='Тип витрат')
     name = models.CharField(max_length=255, verbose_name='Назва придбаного товару')
     cost = models.IntegerField(verbose_name='Вартість')
     date = models.DateField()

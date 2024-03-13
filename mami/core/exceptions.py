@@ -74,3 +74,7 @@ class InstanceCreationError(BaseCustomError):
     """
 
     default_error_message = "An error occurred while creating the {model}."
+
+
+# class InstanceDoesNotExistError(BaseCustomError):
+#     default_error_message = "{model} doesn't exist!"

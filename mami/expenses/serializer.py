@@ -21,3 +21,7 @@ class ExpensesCreateSerializer(serializers.Serializer):
 class TypeSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     type = serializers.CharField()
+
+
+class TypeCreateSerializer(serializers.Serializer):
+    type = serializers.CharField()

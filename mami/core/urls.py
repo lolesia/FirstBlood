@@ -17,11 +17,11 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
 
-    path('api/portfolio/', include('portfolio.urls')),
-    path('api/pet/', include('profiles.urls')),
-    path('api/reviews/', include('reviews.urls')),
-    path('api/services/', include('services.urls')),
-    path('api/visits/', include('visits.urls')),
+    # path('api/portfolio/', include('portfolio.urls')),
+    # path('api/pet/', include('profiles.urls')),
+    # path('api/reviews/', include('reviews.urls')),
+    # path('api/services/', include('services.urls')),
+    # path('api/visits/', include('visits.urls')),
 
     path('api/v1/', include(api_urls))
 ]
